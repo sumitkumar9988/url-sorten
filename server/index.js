@@ -15,6 +15,12 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(helmet());
 app.use(morgan('tiny'));
+
+if(process.env.NODE_ENV==='production')
+{
+    app.use(express.static(client/build));
+}
+
 mongoose.connect(process.env.DATABASE, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false })
     .then(data => (console.log('connected to database')))
     .catch(err => console.log(err));
